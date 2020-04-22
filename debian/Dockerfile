@@ -7,7 +7,9 @@ ARG password="kankan"
 RUN apt-get update && apt-get install -y \
   git \
   vim \
-  locales
+  locales \
+  nginx \
+  openssl
 
 # 日本語設定
 COPY ./setting/locale.gen /etc/

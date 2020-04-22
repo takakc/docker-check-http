@@ -3,6 +3,11 @@ services:
   kankan-debian:
     container_name: kankan-debian
     build: ./debian
+    depends_on:
+      - kankan-php
+    ports:
+      - "80:80"
+      - "443:443"
     environment:
       - TZ=Asia/Tokyo
     networks:
@@ -18,22 +23,6 @@ services:
     networks:
       kankan-net:
         ipv4_address: 172.20.1.30
-    privileged: true
-    stdin_open: true
-    tty: true
-
-  kankan-nginx:
-    container_name: kankan-nginx
-    build: ./nginx
-    depends_on:
-      - kankan-php
-    ports:
-      - "80:80"
-    environment:
-      - "TZ=Asia/Tokyo"
-    networks:
-      kankan-net:
-        ipv4_address: 172.20.1.90
     privileged: true
     stdin_open: true
     tty: true
