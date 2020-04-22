@@ -19,4 +19,4 @@ RUN cat /tmp/bashrc >>~/.bashrc
 RUN rm -f /tmp/bashrc
 
 # .php or .html put this directory
-RUN mkdir /var/www && mkdir /var/www/html
+RUN mkdir -p /var/www/html
