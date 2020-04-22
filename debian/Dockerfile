@@ -17,6 +17,7 @@ RUN locale-gen
 COPY ./setting/bashrc /tmp/
 RUN cat /tmp/bashrc >>~/.bashrc
 RUN rm -f /tmp/bashrc
+COPY setting/ssl.conf /etc/nginx/conf.d/
 
 # .php or .html put this directory
 RUN mkdir -p /var/www/html
