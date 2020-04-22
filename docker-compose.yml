@@ -1,0 +1,48 @@
+version: '2'
+services:
+  kankan-debian:
+    container_name: kankan-debian
+    build: ./debian
+    environment:
+      - TZ=Asia/Tokyo
+    networks:
+      kankan-net:
+        ipv4_address: 172.20.1.10
+    privileged: true
+    stdin_open: true
+    tty: true
+
+  kankan-php:
+    container_name: kankan-php
+    build: ./php
+    networks:
+      kankan-net:
+        ipv4_address: 172.20.1.30
+    privileged: true
+    stdin_open: true
+    tty: true
+
+  kankan-nginx:
+    container_name: kankan-nginx
+    build: ./nginx
+    depends_on:
+      - kankan-php
+    ports:
+      - "80:80"
+    environment:
+      - "TZ=Asia/Tokyo"
+    networks:
+      kankan-net:
+        ipv4_address: 172.20.1.90
+    privileged: true
+    stdin_open: true
+    tty: true
+
+networks:
+  kankan-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.1.0/16
+          gateway: 172.20.1.1
